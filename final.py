@@ -248,7 +248,7 @@ def generateHTML():
         }}
 
         /* ================= CONSTANTS ================= */
-        const R = 300;          // cm
+        const R = 167.64;          // cm
         const LASER_H = 20.955;
         const MIN = -80;
         const MAX = 80;
@@ -555,7 +555,7 @@ class StepperHandler(BaseHTTPRequestHandler):
 
             try:
                 Globalangle = float(parsed.get("bed", [0])[0])
-                Globalradius = 300
+                Globalradius = 167.64
                 print(f"Robot position set: angle={Globalangle}, radius={Globalradius}")
             except:
                 print("Invalid robot position POST")
