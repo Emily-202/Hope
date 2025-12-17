@@ -596,15 +596,6 @@ class StepperHandler(BaseHTTPRequestHandler):
                     return
                 target_theta = turret["theta"]
 
-                # 🚫 SKIP if turret is at robot's current angular position
-                ANG_EPS = math.radians(2.0)
-                if abs(target_theta - Globalangle) < ANG_EPS:
-                    print("[SKIP] Turret is at robot angular position")
-                    self._send_json({
-                        "success": False,
-                        "message": "Target skipped (same angular position as robot)"
-                    })
-                    return
 
                 bed_angle_deg = math.degrees(target_theta)
                 laser_angle_deg = math.degrees(
@@ -668,15 +659,13 @@ class StepperHandler(BaseHTTPRequestHandler):
                     target_theta = turret["theta"]
                     target_z = 0.5  # Always aiming at base of turrets
 
+                    # 🚫 SKIP if turret is at robot's current angular position
                     ANG_EPS = math.radians(2.0)
-
-                    dtheta = (target_theta - Globalangle + math.pi) % (2*math.pi) - math.pi
-                    if abs(dtheta) < ANG_EPS:
-                        print("[AUTONOMOUS SKIP] Target at robot angular position")
+                    if abs(target_theta - Globalangle) < ANG_EPS:
+                        print("[SKIP] Turret is at robot angular position")
                         self._send_json({
-                            "success": True,
-                            "bed": robot_bed_deg,
-                            "laser": robot_laser_deg
+                            "success": False,
+                            "message": "Target skipped (same angular position as robot)"
                         })
                         return
 
