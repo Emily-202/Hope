@@ -27,7 +27,7 @@ Globalheight=20.955
 
 ## Find JSON File --------------------------------------------------------------------
 
-def load_target_data(url="http://192.168.66.122:8000/positions.json"):
+def load_target_data(url="http://192.168.1.254:8000/positions.json"):
     # Return parsed JSON (dict) from a URL using urllib
     try:
         with urlopen(url) as response:
